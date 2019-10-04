@@ -1,16 +1,30 @@
 import pygame
-from os import path
 from settings import *
+import csv
 
 
 class Map:
     def __init__(self, map_file = "Test.map"):
         self.data = []
-        game_folder = path.dirname(__file__)
-        map_folder = path.join(game_folder, "Maps")
+
         with open(path.join(map_folder, map_file), 'rt') as f:
             for line in f:
                 self.data.append(line.strip())
+
+        self.tile_width = len(self.data[0])
+        self.tile_height = len(self.data)
+        self.width = self.tile_width * TILE_SIZE
+        self.height = self.tile_height * TILE_SIZE\
+
+
+class Map_CSV:
+    def __init__(self, map_file = "Test.map"):
+        self.data = []
+
+        with open(path.join(map_folder, map_file)) as csv_file:
+            reader = csv.reader(csv_file, delimiter=',')
+            for row in reader:
+                self.data.append(row)
 
         self.tile_width = len(self.data[0])
         self.tile_height = len(self.data)

@@ -1,14 +1,19 @@
 import pygame
 from settings import *
+from Graphic_Image import *
 vec = pygame.math.Vector2
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, game, x, y):
+    def __init__(self, game, x, y, pic = None):
         self.groups = game.all_sprites
         pygame.sprite.Sprite.__init__(self, self.groups)
         self.game = game
-        self.image = pygame.Surface((TILE_SIZE, TILE_SIZE))
-        self.image.fill(YELLOW)
+        if pic == None:
+            self.image = pygame.Surface((TILE_SIZE, TILE_SIZE))
+            self.image.fill(YELLOW)
+        else:
+            self.image = get_image(pic)
+
         self.rect = self.image.get_rect()
         self.vel = vec(0, 0)
         self.pos = vec(x, y) * TILE_SIZE

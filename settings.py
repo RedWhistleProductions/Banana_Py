@@ -1,3 +1,5 @@
+from os import path
+
 # define colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -21,3 +23,8 @@ GRID_HEIGHT = HEIGHT / TILE_SIZE  # 24
 
 # Player Settings
 PLAYER_SPEED = 300
+
+
+game_folder = path.dirname(__file__)
+map_folder = path.join(game_folder, "Maps")
+image_folder = path.join(game_folder, "Images")

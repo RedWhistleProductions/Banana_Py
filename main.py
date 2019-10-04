@@ -16,21 +16,22 @@ class Game:
         self.load_data()
 
     def load_data(self):
-        self.map = Map("Test_2.map")
-
+        # self.map = Map("Test_2.map")
+        self.map = Map_CSV("Test_2.map")
 
 
     def new(self):
         # start a new game
         self.all_sprites = pygame.sprite.Group()
         self.walls = pygame.sprite.Group()
+        self.curent_map = pygame.sprite.Group()
 
         for row, tiles in enumerate(self.map.data):
             for col, tile in enumerate(tiles):
                 if tile == '1':
                     Wall(self, col, row)
                 if tile == 'P':
-                    self.player = Player(self, col, row)
+                    self.player = Player(self, col, row, "ball.png")
         self.camera = Camera(self.map.width, self.map.height)
 
 
@@ -64,7 +65,7 @@ class Game:
 
     def draw(self):
         self.screen.fill(BGCOLOR)
-        self.draw_grid()
+        #self.draw_grid()
         for sprite in self.all_sprites:
             self.screen.blit(sprite.image, self.camera.apply(sprite))
         pygame.display.flip()
