@@ -8,7 +8,7 @@ _image_library = {}
 
 def get_image(file, key = (255, 255, 255)):
     global _image_library
-    file = path.join(image_folder, file)
+    file = path.join(IMAGE_FOLDER, file)
     image = _image_library.get(path)
 
     if image == None:

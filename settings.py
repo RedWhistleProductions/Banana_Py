@@ -14,6 +14,7 @@ LIGHT_GREY = (100, 100, 100)
 TITLE = "Bananas Game Engine"
 WIDTH = 1024
 HEIGHT = 768
+FULL_SCREEN = False
 FPS = 60
 BGCOLOR = DARK_GREY
 
@@ -23,8 +24,10 @@ GRID_HEIGHT = HEIGHT / TILE_SIZE  # 24
 
 # Player Settings
 PLAYER_SPEED = 300
+PLAYER_IMAGE = "ball.png"
 
+GAME_FOLDER = path.dirname(__file__)
+MAP_FOLDER = path.join(GAME_FOLDER, "Maps")
+IMAGE_FOLDER = path.join(GAME_FOLDER, "Images")
+MAP_KEY = {}
 
-game_folder = path.dirname(__file__)
-map_folder = path.join(game_folder, "Maps")
-image_folder = path.join(game_folder, "Images")

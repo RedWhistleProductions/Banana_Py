@@ -4,19 +4,24 @@ from settings import *
 from os import path
 from Player import *
 from tile_map import *
+from Camera import *
+from functools import partial
+from Basic_Sprite_Types import *
 
 class Game:
     def __init__(self):
         # initialize game window, etc
         pygame.init()
-        self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
+        if FULL_SCREEN:
+            self.screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)
+        else:
+            self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption(TITLE)
         self.clock = pygame.time.Clock()
         pygame.key.set_repeat(500, 100)
         self.load_data()
 
     def load_data(self):
-        # self.map = Map("Test_2.map")
         self.map = Map_CSV("Test_2.map")
 
 
@@ -25,13 +30,22 @@ class Game:
         self.all_sprites = pygame.sprite.Group()
         self.walls = pygame.sprite.Group()
         self.curent_map = pygame.sprite.Group()
+        self.SOLID_SPRITES = pygame.sprite.Group()
 
         for row, tiles in enumerate(self.map.data):
             for col, tile in enumerate(tiles):
-                if tile == '1':
-                    Wall(self, col, row)
-                if tile == 'P':
-                    self.player = Player(self, col, row, "ball.png")
+
+
+                if tile in MAP_KEY:
+                    foo = MAP_KEY[tile]
+                    if tile == 'P':
+                        self.player = foo(self, col, row)
+                    else:
+                        foo(self, col, row)
+
+
+
+
         self.camera = Camera(self.map.width, self.map.height)
 
 
@@ -65,7 +79,6 @@ class Game:
 
     def draw(self):
         self.screen.fill(BGCOLOR)
-        #self.draw_grid()
         for sprite in self.all_sprites:
             self.screen.blit(sprite.image, self.camera.apply(sprite))
         pygame.display.flip()

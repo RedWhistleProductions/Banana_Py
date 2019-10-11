@@ -2,12 +2,14 @@ import pygame
 from settings import *
 from Graphic_Image import *
 vec = pygame.math.Vector2
+from Basic_Sprite_Types import *
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, game, x, y, pic = None):
         self.groups = game.all_sprites
         pygame.sprite.Sprite.__init__(self, self.groups)
         self.game = game
+        self.Player = self
         if pic == None:
             self.image = pygame.Surface((TILE_SIZE, TILE_SIZE))
             self.image.fill(YELLOW)
@@ -61,17 +63,13 @@ class Player(pygame.sprite.Sprite):
         self.collide_with_walls('x')
         self.rect.y = self.pos.y
         self.collide_with_walls('y')
+MAP_KEY['P'] = lambda game, x, y: Player(game, x, y, PLAYER_IMAGE)
 
-class Wall(pygame.sprite.Sprite):
-    def __init__(self, game, x, y):
+class Wall(Basic_Sprite):
+    def __init__(self, game, x, y, image = None):
         self.groups = game.all_sprites, game.walls
         pygame.sprite.Sprite.__init__(self, self.groups)
-        self.game = game
-        self.image = pygame.Surface((TILE_SIZE, TILE_SIZE))
-        self.image.fill(GREEN)
-        self.rect = self.image.get_rect()
-        self.x = x
-        self.y = y
-        self.rect.x = x * TILE_SIZE
-        self.rect.y = y * TILE_SIZE
+        Basic_Sprite.__init__(self, game, x, y, image)
 
+MAP_KEY['W'] = lambda game, x, y: Wall(game, x, y, "Cement.bmp")
+MAP_KEY['1'] = lambda game, x, y: Wall(game, x, y, "Red_Brick.bmp")
