@@ -16,6 +16,7 @@ class Basic_Sprite(pygame.sprite.Sprite):
 
         else:
             self.image = get_image(image)
+            self.image = pygame.transform.scale(self.image, (TILE_SIZE, TILE_SIZE))
         self.rect = self.image.get_rect()
         self.x = x
         self.y = y

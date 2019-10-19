@@ -12,18 +12,18 @@ LIGHT_GREY = (100, 100, 100)
 
 # game options/settings
 TITLE = "Bananas Game Engine"
-WIDTH = 1024
-HEIGHT = 768
-FULL_SCREEN = False
-FPS = 60
-BGCOLOR = DARK_GREY
+WIDTH = 32 * 40  # 1280 1024
+HEIGHT = 32 * 24  # 704 768
+FULL_SCREEN = True
+FPS = 30
+BGCOLOR = WHITE
 
 TILE_SIZE = 32
 GRID_WIDTH = WIDTH / TILE_SIZE  # 32
 GRID_HEIGHT = HEIGHT / TILE_SIZE  # 24
 
 # Player Settings
-PLAYER_SPEED = 300
+PLAYER_SPEED = 7 * TILE_SIZE
 PLAYER_IMAGE = "ball.png"
 
 GAME_FOLDER = path.dirname(__file__)
