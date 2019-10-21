@@ -14,8 +14,12 @@ class Animation():
         else:
             self.pics.append(get_sprite(sprite_name, sheet_name, rectangle, key))
 
+    def Load(self, sheet_name, animation_name, num_pics, start_x, start_y, w, h, space = 0):
+        for i in range(num_pics):
+            sprite_name = animation_name + "_" + i.__str__()
+            self.Add_Pic(sprite_name, sheet_name, (start_x + i * (w+space), start_y, w, h))
 
-        
+
 
     def Update(self):
         self.frame_count += 1
