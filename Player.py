@@ -6,10 +6,9 @@ from Basic_Sprite_Types import *
 from Animation import *
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, game, x, y, pic = None):
-        self.groups = game.all_sprites
+    def __init__(self, x, y, pic = None):
+        self.groups = ALL_SPRITES
         pygame.sprite.Sprite.__init__(self, self.groups)
-        self.game = game
         self.Player = self
 
         self.Animation_Standing = Animation()
@@ -69,7 +68,7 @@ class Player(pygame.sprite.Sprite):
 
     def collide_with_walls(self, dir):
         if dir == 'x':
-            hits = pygame.sprite.spritecollide(self, self.game.walls, False)
+            hits = pygame.sprite.spritecollide(self, WALLS, False)
             if hits:
                 if self.vel.x > 0:
                     self.pos.x = hits[0].rect.left - self.rect.width
@@ -78,7 +77,7 @@ class Player(pygame.sprite.Sprite):
                 self.vel.x = 0
                 self.rect.x = self.pos.x
         if dir == 'y':
-            hits = pygame.sprite.spritecollide(self, self.game.walls, False)
+            hits = pygame.sprite.spritecollide(self, WALLS, False)
             if hits:
                 if self.vel.y > 0:
                     self.pos.y = hits[0].rect.top - self.rect.height
@@ -89,7 +88,7 @@ class Player(pygame.sprite.Sprite):
 
     def update(self):
         self.get_keys()
-        self.pos += self.vel * self.game.dt
+        self.pos += self.vel * CLOCK.tick(FPS) / 1000
         if self.Current_Animation.pics.__len__() > 0:
             self.image = self.Current_Animation.Update()
         self.rect.x = self.pos.x
@@ -98,13 +97,15 @@ class Player(pygame.sprite.Sprite):
         self.collide_with_walls('y')
 
 
-MAP_KEY['P'] = lambda game, x, y: Player(game, x, y, PLAYER_IMAGE)
+MAP_KEY['P'] = lambda x, y: Player(x, y, PLAYER_IMAGE)
 
 class Wall(Basic_Sprite):
-    def __init__(self, game, x, y, image = None):
-        self.groups = game.all_sprites, game.walls
-        pygame.sprite.Sprite.__init__(self, self.groups)
-        Basic_Sprite.__init__(self, game, x, y, image)
+    def __init__(self, x, y, image = None):
 
-MAP_KEY['W'] = lambda game, x, y: Wall(game, x, y, "Cement.bmp")
-MAP_KEY['1'] = lambda game, x, y: Wall(game, x, y, "Red_Brick.bmp")
+        self.groups = ALL_SPRITES, WALLS
+        pygame.sprite.Sprite.__init__(self, self.groups)
+        Basic_Sprite.__init__(self, x, y, image)
+
+
+MAP_KEY['W'] = lambda x, y: Wall(x, y, "Cement.bmp")
+MAP_KEY['1'] = lambda x, y: Wall(x, y, "Red_Brick.bmp")

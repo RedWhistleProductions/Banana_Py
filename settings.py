@@ -1,4 +1,5 @@
 from os import path
+import pygame
 
 # define colors
 WHITE = (255, 255, 255)
@@ -16,7 +17,7 @@ WIDTH = 32 * 40  # 1280 1024
 HEIGHT = 32 * 24  # 704 768
 FULL_SCREEN = False
 FPS = 30
-BGCOLOR = WHITE
+BGCOLOR = DARK_GREY
 
 TILE_SIZE = 32
 GRID_WIDTH = WIDTH / TILE_SIZE  # 32
@@ -31,3 +32,7 @@ MAP_FOLDER = path.join(GAME_FOLDER, "Maps")
 IMAGE_FOLDER = path.join(GAME_FOLDER, "Images")
 MAP_KEY = {}
 
+ALL_SPRITES = pygame.sprite.Group()
+WALLS = pygame.sprite.Group()
+CURRENT_MAP = pygame.sprite.Group()
+CLOCK = pygame.time.Clock()
